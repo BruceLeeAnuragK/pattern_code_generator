@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +12,11 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
+TextEditingController RScontroller = TextEditingController();
+TextEditingController REcontroller = TextEditingController();
+TextEditingController CScontroller = TextEditingController();
+TextEditingController CEcontroller = TextEditingController();
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -27,13 +34,122 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Consumer<PatternController>(
         builder: (context, provider, child) {
-          return Column(
+          return ListView(
             children: [
-              for (int i = 1; i <= 5; i++)
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Text("Row Initial value :"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 100,
+                          child: TextField(
+                            onChanged: (val) {},
+                            onSubmitted: (val) {},
+                            controller: RScontroller,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.green.shade900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Row Ending value :"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 100,
+                          child: TextField(
+                            onChanged: (val) {},
+                            onSubmitted: (val) {},
+                            controller: REcontroller,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.green.shade900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Column Initial value :"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 100,
+                          child: TextField(
+                            onChanged: (val) {},
+                            onSubmitted: (val) {},
+                            controller: CScontroller,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.green.shade900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Column Ending value :"),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 100,
+                          child: TextField(
+                            controller: CEcontroller,
+                            onChanged: (val) {},
+                            onSubmitted: (val) {},
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.green.shade900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              for (int i = int.parse(RScontroller.text);
+                  i <= int.parse(REcontroller.text);
+                  i++)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.values[provider.align],
                   children: [
-                    for (int j = 1; j <= i; j++)
+                    for (int j = int.parse(CScontroller.text);
+                        j <= int.parse(CEcontroller.text);
+                        j++)
                       Card(
                         child: Text(
                           provider.valueType == 0
@@ -45,9 +161,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                   ],
                 ),
-              SizedBox(
-                height: 10,
-              ),
+              Spacer(),
               CupertinoSlidingSegmentedControl(
                 groupValue: provider.align,
                 children: {
@@ -60,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               CupertinoSlidingSegmentedControl(
                 groupValue: provider.valueType,
@@ -72,6 +186,9 @@ class _HomePageState extends State<HomePage> {
                 onValueChanged: (val) {
                   provider..chnagevalueType(valueType: val ?? 0);
                 },
+              ),
+              SizedBox(
+                height: 40,
               ),
             ],
           );
