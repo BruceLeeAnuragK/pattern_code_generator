@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -141,15 +139,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              for (int i = int.parse(RScontroller.text);
-                  i <= int.parse(REcontroller.text);
-                  i++)
+              for (int i = 1; i <= 5; i++)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.values[provider.align],
                   children: [
-                    for (int j = int.parse(CScontroller.text);
-                        j <= int.parse(CEcontroller.text);
-                        j++)
+                    for (int j = i; j <= 5; j++)
                       Card(
                         child: Text(
                           provider.valueType == 0
